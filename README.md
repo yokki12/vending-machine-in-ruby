@@ -1,6 +1,6 @@
 # vending-machine-in-ruby
 
-[TDDBC大阪3\.0/課題（自動販売機問題）](http://devtesting.jp/tddbc/?TDDBC%E5%A4%A7%E9%98%AA3.0%2F%E8%AA%B2%E9%A1%8C)の課題をRubyで解くための開発テンプレートです。
+[TDDBC大阪3\.0/課題（自動販売機問題）](http://devtesting.jp/tddbc/?TDDBC%E5%A4%A7%E9%98%AA3.0%2F%E8%AA%B2%E9%A1%8C)の課題をRubyで解くための解答テンプレートです。
 
 ## How to setup
 
