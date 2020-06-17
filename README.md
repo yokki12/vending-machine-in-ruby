@@ -6,6 +6,8 @@
 
 このリポジトリを自分のGitHubアカウントにフォークする
 
+<img width="158" alt="Screen Shot 2020-06-17 at 20 01 01" src="https://user-images.githubusercontent.com/1148320/84890378-4a579d80-b0d5-11ea-950c-bc16772e862b.png">
+
 自分のローカルにフォークしたリポジトリをclone（your-nameの部分は自分のアカウントIDを入れる）
 
 ```
