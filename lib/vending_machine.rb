@@ -7,7 +7,7 @@ class VendingMachine
     @sales_amount = 0
     @stocks = {}
     5.times do
-      drink = Drink.cola
+      drink = Drink.coke
       unless @stocks[drink.name]
         @stocks[drink.name] = []
       end

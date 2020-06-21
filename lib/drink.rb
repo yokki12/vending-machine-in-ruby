@@ -1,8 +1,8 @@
 class Drink
   attr_accessor :name, :price
 
-  def self.cola
-    self.new('cola', 120)
+  def self.coke
+    self.new('コーラ', 120)
   end
 
   def initialize(name, price)
