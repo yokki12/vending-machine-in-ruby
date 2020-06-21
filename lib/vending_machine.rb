@@ -1,22 +1,18 @@
+require './lib/drink'
+
 class VendingMachine
-  attr_accessor :prices, :quantities
 
   def initialize
-    @prices = {'コーラ' => 120}
-    @quantities = {'コーラ' => 5}
+    @stocks = []
+    5.times do
+      @stocks << Drink.cola
+    end
   end
 
   def current_stocks
-    stocks = []
-    @prices.each do |k, v|
-      stocks << [k, v, @quantities[k]]
-    end
-    stocks
+    drink = @stocks[0]
+    [{name: drink.name, price: drink.price, stock: @stocks.count}]
   end
-
-  # def stock_available?(drink)
-  #   @quantities[drink] > 0
-  # end
 end
 
 # step1

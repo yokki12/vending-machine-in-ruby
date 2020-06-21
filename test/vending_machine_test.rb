@@ -2,12 +2,17 @@ require 'minitest/autorun'
 require './lib/vending_machine'
 require './lib/suica'
 
-# class VendingMachineTest < Minitest::Test
-#   def test_step_1
-#     machine = VendingMachine.new
-#     # assert !machine.nil?
-#     assert_equal ["コーラ", 120, 5], machine.current_stocks
-#     assert machine.stock_available?('コーラ')
-#   end
-# end
+class VendingMachineTest < Minitest::Test
+  def test_step_1
+    machine = VendingMachine.new
+    expected = [
+      {
+        name: 'cola',
+        price: 120,
+        stock: 5,
+      }
+    ]
+    assert_equal expected, machine.current_stocks
+  end
+end
 
