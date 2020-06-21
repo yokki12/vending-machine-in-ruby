@@ -14,5 +14,64 @@ class VendingMachineTest < Minitest::Test
     ]
     assert_equal expected, machine.current_stocks
   end
+  
+  def test_step_2
+    # 自動販売機は在庫の点で、コーラが購入できるかどうかを取得できる。
+    machine = VendingMachine.new
+    assert machine.stock_available?('cola')
+    # ジュース値段以上のチャージ残高がある条件下で購入操作を行うと、自動販売機はジュースの在庫を減らし、売り上げ金額を増やし、Suicaのチャージ残高を減らす。
+    suica = Suica.new(120)
+    drink = machine.buy('cola', suica)
+    assert_equal 'cola', drink.name
+    expected = [
+      {
+        name: 'cola',
+        price: 120,
+        stock: 4,
+      }
+    ]
+    assert_equal expected, machine.current_stocks
+    assert_equal 120, machine.sales_amount
+    assert_equal 0, suica.balance
+    # チャージ残高が足りない場合もしくは在庫がない場合、購入操作を行っても何もしない。
+    # 自動販売機は現在の売上金額を取得できる。
+  end
+
+  def test_step2_チャージ残高が足りない場合
+      machine = VendingMachine.new
+      assert machine.stock_available?('cola')
+      suica = Suica.new(119)
+      drink = machine.buy('cola', suica)
+      assert_nil drink
+      expected = [
+        {
+          name: 'cola',
+          price: 120,
+          stock: 5,
+        }
+      ]
+      assert_equal expected, machine.current_stocks
+      assert_equal 0, machine.sales_amount
+      assert_equal 119, suica.balance
+      # チャージ残高が足りない場合もしくは在庫がない場合、購入操作を行っても何もしない。
+
+      # 自動販売機は現在の売上金額を取得できる。  
+  end
+  def test_step2_在庫が足りない場合
+    machine = VendingMachine.new
+    assert machine.stock_available?('cola')
+    suica = Suica.new(10000)
+    machine.buy('cola', suica)
+    machine.buy('cola', suica)
+    machine.buy('cola', suica)
+    machine.buy('cola', suica)
+    assert machine.stock_available?('cola')
+    machine.buy('cola', suica)
+    refute machine.stock_available?('cola')
+    assert_nil machine.buy('cola', suica)
+    assert_equal 9400, suica.balance
+    assert_equal 600, machine.sales_amount
+    assert_equal [], machine.current_stocks
+  end
 end
 

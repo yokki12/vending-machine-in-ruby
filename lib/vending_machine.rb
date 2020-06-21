@@ -1,8 +1,10 @@
 require './lib/drink'
 
 class VendingMachine
+  attr_reader :sales_amount
 
   def initialize
+    @sales_amount = 0
     @stocks = {}
     5.times do
       drink = Drink.cola
@@ -16,7 +18,22 @@ class VendingMachine
   def current_stocks
     @stocks.map do |name, drinks|
       drink = drinks.first
+      next if drink.nil?
       {name: drink.name, price: drink.price, stock: drinks.count}
-    end
+    end.compact
+  end
+
+  def stock_available?(name)
+    @stocks[name].size > 0
+  end
+
+  def buy(name, suica)
+    return nil unless stock_available?(name)
+    price = @stocks[name][0].price
+    return nil if suica.balance < price
+    drink = @stocks[name].shift
+    @sales_amount += drink.price
+    suica.withdraw_money(drink.price)
+    drink
   end
 end
