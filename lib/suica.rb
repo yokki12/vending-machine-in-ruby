@@ -14,7 +14,3 @@ class Suica
     @balance -= money
   end
 end
-
-# step0
-# Suicaには100円以上の任意の金額をチャージできる
-# Suicaは現在のチャージ残高を取得できる。

@@ -4,6 +4,8 @@ require './lib/suica'
 
 class VendingMachineTest < Minitest::Test
   def test_step_1
+    # 自動販売機は値段と名前の属性からなるジュースを１種類格納できる。初期状態で、コーラ（値段:120円、名前”コーラ”）を5本格納している。
+    # 自動販売機は格納されているジュースの情報（値段と名前と在庫）を取得できる。
     machine = VendingMachine.new
     expected = [
       {
@@ -33,12 +35,12 @@ class VendingMachineTest < Minitest::Test
     assert_equal expected, machine.current_stocks
     assert_equal 120, machine.sales_amount
     assert_equal 0, suica.balance
-    # チャージ残高が足りない場合もしくは在庫がない場合、購入操作を行っても何もしない。
-    # 自動販売機は現在の売上金額を取得できる。
   end
 
   def test_step2_チャージ残高が足りない場合
-      machine = VendingMachine.new
+    # チャージ残高が足りない場合、購入操作を行っても何もしない。
+    # 自動販売機は現在の売上金額を取得できる。
+    machine = VendingMachine.new
       assert machine.stock_available?('cola')
       suica = Suica.new(119)
       drink = machine.buy('cola', suica)
@@ -53,11 +55,11 @@ class VendingMachineTest < Minitest::Test
       assert_equal expected, machine.current_stocks
       assert_equal 0, machine.sales_amount
       assert_equal 119, suica.balance
-      # チャージ残高が足りない場合もしくは在庫がない場合、購入操作を行っても何もしない。
-
-      # 自動販売機は現在の売上金額を取得できる。  
   end
+
   def test_step2_在庫が足りない場合
+    # 在庫がない場合、購入操作を行っても何もしない。
+    # 自動販売機は現在の売上金額を取得できる。  
     machine = VendingMachine.new
     assert machine.stock_available?('cola')
     suica = Suica.new(10000)
@@ -75,3 +77,4 @@ class VendingMachineTest < Minitest::Test
   end
 end
 
+ 
